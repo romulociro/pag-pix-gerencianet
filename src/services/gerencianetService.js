@@ -41,3 +41,20 @@ exports.createCob = async (dataCob, accessToken) => {
 
     return cobResponse;
 };
+
+// Função para obter o QR Code de uma cobrança
+exports.getQRCode = async (id, accessToken) => {
+    const reqGN = axios.default.create({
+        baseURL,
+        httpsAgent: agent,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        responseType: 'arraybuffer'  // Resposta será um buffer de bytes
+    });
+
+    const qrCodeResponse = await reqGN.get(`/v2/loc/${id}/qrcode`);
+
+    return qrCodeResponse;
+};
