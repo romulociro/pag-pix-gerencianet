@@ -6,6 +6,7 @@ const axios = require('axios')
 const fs = require('fs')
 const path = require('path')
 const https = require('https')
+const { config } = require('dotenv')
 
 const cert = fs.readFileSync(
     path.resolve(__dirname, `../certs/${process.env.GN_CERT}`)
@@ -31,4 +32,29 @@ axios({
     data: {
         grant_type: 'client_credentials'
     }
-}).then((response) => console.log(response.data))
+}).then((response) => {
+    const acessToken = response.data?.access_token
+
+    const reqGN = axios.create({
+        baseURL: process.env.GN_ENDPOINT,
+        httpsAgent: agent,
+        headers: {
+            Authorization: `Bearer ${acessToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+
+    const dataCob = {
+        calendario: {
+            expiracao: 3600
+        },
+        valor: {
+            original: '124.45'
+        },
+        chave: '2c449291-5b3d-4179-a3c6-5099683f6206',
+        solicitacaoPagador: 'Cobrança de Serviços Prestados.'
+
+    }
+
+    reqGN.post('/v2/cob', dataCob, config).then((response) => console.log(response.data))
+})
