@@ -1,0 +1,18 @@
+{
+  "name": "pag-gn-pix",
+  "version": "1.0.0",
+  "description": "Sistema de Pagamento Pix GerenciaNet",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon src/server.js"
+  },
+  "author": "Romulo Ciro",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}
