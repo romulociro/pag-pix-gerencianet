@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-require('dotenv').config();
 
-const certPath = path.resolve(__dirname, '../../certs', process.env.GN_CERT);
+const certPath = './certs/producao-467735-PagCert.p12'
 
 // Função para criar o agente HTTPS com o certificado
 exports.createAgent = () => {
