@@ -58,3 +58,19 @@ exports.getQRCode = async (id, accessToken) => {
 
     return qrCodeResponse;
 };
+
+// Função para obter o status de uma cobrança
+exports.getCobStatus = async (txid, accessToken) => {
+    const reqGN = axios.default.create({
+        baseURL,
+        httpsAgent: agent,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const cobStatusResponse = await reqGN.get(`/v2/cob/${txid}`);
+
+    return cobStatusResponse;
+};

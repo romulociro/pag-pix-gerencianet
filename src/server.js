@@ -11,11 +11,8 @@ app.use(bodyParser.json());
 
 app.get('/', paymentController.getPayment);
 app.get('/qrcode/:id', paymentController.getQRCode);
+app.get('/payment/:txid/check', paymentController.getPaymentStatus);
 
-app.post('/webhook(/pix)?', (req, res) => {
-    console.log(req.body)
-    res.send(200)
-});
 
 // Adicione outras rotas e controladores conforme necessário
 

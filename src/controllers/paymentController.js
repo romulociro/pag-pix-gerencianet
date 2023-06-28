@@ -49,3 +49,22 @@ exports.getQRCode = async (req, res) => {
         }
     }
 };
+
+// Função para verificar o status de um pagamento
+exports.getPaymentStatus = async (req, res) => {
+    try {
+        const accessToken = await gerencianetService.getAccessToken();
+        const cobStatusResponse = await gerencianetService.getCobStatus(req.params.txid, accessToken);
+
+        res.send(cobStatusResponse.data);
+    } catch (error) {
+        console.error(error);
+        if (error.response && error.response.status === 400) {
+            res.status(400).send('Bad Request');
+        } else if (error.response && error.response.status === 404) {
+            res.status(404).send('Not Found');
+        } else {
+            res.status(500).send('Internal Server Error');
+        }
+    }
+};
