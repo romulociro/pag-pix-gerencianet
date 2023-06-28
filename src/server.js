@@ -7,6 +7,9 @@ const app = express();
 
 
 app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({
+    origin: 'https://pag-pix-frontend.vercel.app'
+}));
 app.use(bodyParser.json());
 
 app.get('/', paymentController.getPayment);
